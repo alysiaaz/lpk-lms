@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
 
         //menyesuaikan role
         if ($request->user()->role === 'admin'){
-            return redicted()->intended('/admin/dashboard');
+            return redirect()->intended('/admin/dashboard');
         }
 
         return redirect()->intended('/peserta/dashboard');

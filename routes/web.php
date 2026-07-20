@@ -31,8 +31,14 @@ Route::middleware(['auth'])->prefix('peserta')->group(function() {
 
 // admin (wajib login dengan role admin)
 Route::middleware(['auth'])->prefix('admin')->group(function() {
-    Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
-    Route::resource('kursus', App\Http\Controllers\Admin\KursusController::class);
+    Route::middleware(['admin'])->group(function() {
+        Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
+
+        Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->name('admin.settings.edit');
+        Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('admin.settings.update');
+
+        Route::resource('kursus', App\Http\Controllers\Admin\KursusController::class);
+    });
 });
 
 
