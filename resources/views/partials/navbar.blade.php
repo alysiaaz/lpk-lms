@@ -5,22 +5,44 @@
             <div class="w-10 h-10 bg-lpk-teal rounded-xl flex items-center justify-center font-extrabold text-lpk-bg text-xl shadow-md">
                 L
             </div>
-            <span class="text-xl font-extrabold tracking-tight text-lpk-teal">LPK <span class="font-normal text-lpk-charcoal">Karier Sukses</span></span>
+            <span class="text-xl font-extrabold tracking-tight text-lpk-teal">LPK <span class="font-normal text-lpk-charcoal">Karier</span></span>
         </a>
 
-        <!-- Navigasi -->
+        <!-- Menu Navigasi -->
         <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-lpk-charcoal/80">
-            <a href="{{ url('/') }}" class="text-lpk-teal font-bold border-b-2 border-lpk-gold pb-1">Beranda</a>
-            <a href="#" class="hover:text-lpk-teal transition-colors">Semua Kursus</a>
-            <a href="#" class="hover:text-lpk-teal transition-colors">Tentang Kami</a>
+            <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'text-lpk-teal font-bold border-b-2 border-lpk-gold pb-1' : 'hover:text-lpk-teal transition-colors' }}">
+                Beranda
+            </a>
+            <a href="{{ url('/kursus') }}" class="{{ request()->is('kursus*') ? 'text-lpk-teal font-bold border-b-2 border-lpk-gold pb-1' : 'hover:text-lpk-teal transition-colors' }}">
+                Semua Kursus
+            </a>
+            <a href="{{ url('/tentang') }}" class="{{ request()->is('tentang*') ? 'text-lpk-teal font-bold border-b-2 border-lpk-gold pb-1' : 'hover:text-lpk-teal transition-colors' }}">
+                Tentang Kami
+            </a>
         </nav>
 
-        <!-- Action -->
+        <!-- Tombol Action (Pintar: Berubah Sesuai Status Login) -->
         <div class="flex items-center space-x-4">
-            <a href="#" class="text-sm font-bold text-lpk-teal hover:opacity-80 transition-opacity px-3 py-2">Masuk</a>
-            <a href="#" class="bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal text-sm font-extrabold px-6 py-2.5 rounded-full shadow-sm transition-all transform hover:-translate-y-0.5">
-                Daftar Sekarang
-            </a>
+            @guest
+                <!-- Jika Belum Login -->
+                <a href="{{ route('login') }}" class="text-sm font-bold text-lpk-teal hover:opacity-80 transition-opacity px-3 py-2">
+                    Masuk
+                </a>
+                <a href="{{ route('register') }}" class="bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal text-sm font-extrabold px-6 py-2.5 rounded-full shadow-sm transition-all transform hover:-translate-y-0.5">
+                    Daftar Sekarang
+                </a>
+            @else
+                <!-- Jika Sudah Login -->
+                <a href="{{ url('/dashboard') }}" class="bg-lpk-teal text-lpk-bg hover:bg-lpk-charcoal text-xs font-extrabold px-5 py-2.5 rounded-full shadow-sm transition-all flex items-center space-x-2">
+                    <span>📊 Dasbor Saya</span>
+                </a>
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="text-xs font-bold text-red-600 hover:underline px-2 py-2">
+                        Keluar
+                    </button>
+                </form>
+            @endguest
         </div>
     </div>
 </header>

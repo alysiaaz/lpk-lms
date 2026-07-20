@@ -48,7 +48,7 @@
 
             <div class="pt-2">
                 <button type="submit" class="w-full bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold py-3.5 rounded-2xl text-sm transition-all shadow-md transform active:scale-[0.98]">
-                    Buat Akun Peserta 🚀
+                    Buat Akun Peserta
                 </button>
             </div>
         </form>
