@@ -5,7 +5,7 @@
             <div class="w-10 h-10 bg-lpk-teal rounded-xl flex items-center justify-center font-extrabold text-lpk-bg text-xl shadow-md">
                 L
             </div>
-            <span class="text-xl font-extrabold tracking-tight text-lpk-teal">LPK <span class="font-normal text-lpk-charcoal">Karier</span></span>
+            <span class="text-xl font-extrabold tracking-tight text-lpk-teal">LPK <span class="font-normal text-lpk-charcoal">Karier Sukses</span></span>
         </a>
 
         <!-- Menu Navigasi -->

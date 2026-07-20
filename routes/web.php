@@ -8,9 +8,12 @@ use App\Http\Controllers\Peserta\DashboardController as PesertaDashboard;
 
 // Publik
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
-Route::get('/tentang', [BerandaController::class, 'tentang'])->name('tentang');
 Route::get('/kursus', [KursusController::class, 'index'])->name('kursus.index');
 Route::get('/kursus/{slug}', [KursusController::class, 'show'])->name('kursus.show');
+
+Route::get('/tentang', function() {
+    return view('publik.tentang');
+})->name('tentang');
 
 // penghubung dashboard
 Route::get('/dashboard', function() {

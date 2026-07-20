@@ -48,7 +48,7 @@
         <div class="md:col-span-3 space-y-3">
             <h4 class="text-lpk-gold font-extrabold mb-4 uppercase tracking-widest text-[11px]">Hubungi Kami</h4>
             <p class="leading-relaxed font-normal text-lpk-bg/70">
-                Jl. Pendidikan No. 123, Kota Makassar,<br>Sulawesi Selatan, Indonesia.
+                Jl. Anuang 21, Kota Makassar,<br>Sulawesi Selatan, Indonesia.
             </p>
             <div class="pt-1 space-y-1.5 text-lpk-bg font-medium">
                 <p class="flex items-center"><span class="mr-2">📧</span> alys@lpk-karier.id</p>
