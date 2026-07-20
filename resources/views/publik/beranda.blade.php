@@ -1,67 +1,147 @@
 @extends('layouts.app')
 @section('title', 'Beranda - LPK Karier Sukses')
+
 @section('content')
-    <!-- 1. HERO SECTION -->
-    <section class="relative bg-gradient-to-b from-indigo-900 via-indigo-800 to-slate-900 text-white overflow-hidden py-20 lg:py-28">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- HERO SECTION -->
+    <section class="py-12 lg:py-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-amber-300 text-xs font-bold tracking-wide uppercase">
-                        <span>🔥 Lembaga Pelatihan Kerja Resmi & Terakreditasi</span>
+                
+                <!-- Sisi Kiri-->
+                <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-lpk-mint border border-lpk-teal/20 text-lpk-teal text-xs font-extrabold tracking-wide uppercase">
+                        <span class="w-2 h-2 rounded-full bg-lpk-gold animate-pulse"></span>
+                        <span>Penerimaan Peserta Baru 2026</span>
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-                        Tingkatkan Skill, <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">Siap Kerja Cepat</span> Di Industri Impian.
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-lpk-teal leading-[1.15]">
+                        Ubah Ambisi Menjadi <br>
+                        <span class="relative inline-block text-lpk-charcoal">
+                            Keahlian Nyata.
+                            <span class="absolute bottom-1 left-0 w-full h-3 bg-lpk-gold/40 -z-10 transform -rotate-1"></span>
+                        </span>
                     </h1>
-                    <p class="text-indigo-200 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-                        Kurikulum praktis berstandar industri, diajar oleh praktisi berpengalaman, serta dukungan penyaluran kerja ke ratusan perusahaan mitra.
+                    
+                    <p class="text-lpk-charcoal/80 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+                        Lembaga Pelatihan Kerja dengan kurikulum intensif berstandar industri. Kami membekalimu dengan keterampilan praktis, portofolio kuat, serta penyaluran kerja langsung.
                     </p>
-                    <div class="pt-6 grid grid-cols-3 gap-4 border-t border-indigo-700/50 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
-                        <div><div class="text-2xl sm:text-3xl font-extrabold text-white">2,500+</div><div class="text-xs text-indigo-300 mt-0.5">Alumni Sukses</div></div>
-                        <div><div class="text-2xl sm:text-3xl font-extrabold text-amber-400">94%</div><div class="text-xs text-indigo-300 mt-0.5">Tingkat Penyaluran</div></div>
-                        <div><div class="text-2xl sm:text-3xl font-extrabold text-white">150+</div><div class="text-xs text-indigo-300 mt-0.5">Mitra Perusahaan</div></div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#" class="w-full sm:w-auto text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold px-8 py-4 rounded-full shadow-md transition-transform transform hover:-translate-y-0.5">
+                            Jelajahi Program →
+                        </a>
+                        <a href="#" class="w-full sm:w-auto text-center bg-transparent hover:bg-lpk-mint text-lpk-teal font-bold px-6 py-4 rounded-full border border-lpk-teal/30 transition-colors">
+                            Konsultasi Gratis
+                        </a>
+                    </div>
+
+                    <!-- Mini Statistik Hero -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-lpk-teal/15 max-w-md mx-auto lg:mx-0 text-left">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-lpk-teal">95%</div>
+                            <div class="text-[11px] text-lpk-charcoal/70 font-semibold mt-0.5">Tingkat Kelulusan</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-lpk-teal">2,500+</div>
+                            <div class="text-[11px] text-lpk-charcoal/70 font-semibold mt-0.5">Alumni Bekerja</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-lpk-gold">★ 4.7</div>
+                            <div class="text-[11px] text-lpk-charcoal/70 font-semibold mt-0.5">Rating Peserta</div>
+                        </div>
                     </div>
                 </div>
-                <!-- ILUSTRASI MODERN PENGGANTI FOTO -->
-                <div class="lg:col-span-5 relative">
-                    <div class="relative mx-auto max-w-md lg:max-w-none">
-                        <div class="aspect-square rounded-3xl bg-gradient-to-tr from-indigo-600 to-indigo-400 p-1 shadow-2xl rotate-2 opacity-80"></div>
-                        <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-xl border border-indigo-500/30 rounded-3xl p-6 flex flex-col justify-between shadow-2xl -rotate-1 transition-transform hover:rotate-0 duration-300">
-                            <div class="flex items-center justify-between border-b border-indigo-500/20 pb-4">
-                                <div class="flex items-center space-x-3"><div class="w-3 h-3 rounded-full bg-red-500"></div><div class="w-3 h-3 rounded-full bg-yellow-500"></div><div class="w-3 h-3 rounded-full bg-green-500"></div></div>
-                                <span class="text-xs font-mono text-indigo-300 bg-indigo-950 px-2.5 py-1 rounded-md border border-indigo-800">🎯 Ready for Work</span>
+
+                <!-- Sisi Kanan -->
+                <div class="lg:col-span-6 relative">
+                    <div class="grid grid-cols-2 gap-4 items-center">
+                        <!-- Kiri Kolase -->
+                        <div class="space-y-4">
+                            <div class="bg-lpk-mint p-6 rounded-3xl border border-lpk-teal/10 aspect-[4/5] flex flex-col justify-between relative overflow-hidden group shadow-sm">
+                                <span class="bg-lpk-teal text-lpk-bg text-[10px] font-extrabold px-2.5 py-1 rounded-full w-max">PRAKTEK NYATA</span>
+                                <div>
+                                    <div class="text-3xl mb-1">💻</div>
+                                    <h4 class="font-bold text-lpk-teal text-sm">Lab Komputer & Coding Intensif</h4>
+                                </div>
                             </div>
-                            <div class="my-auto py-6 text-center space-y-4">
-                                <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center shadow-lg shadow-amber-500/20 text-slate-900 font-extrabold text-2xl">🚀</div>
-                                <div><h3 class="text-lg font-bold text-white">Fullstack Web Development</h3><p class="text-xs text-indigo-300 mt-1">Belajar dari nol hingga siap deploy aplikasi berskala industri.</p></div>
-                            </div>
-                            <div class="bg-indigo-950/80 p-4 rounded-xl border border-indigo-800/50 space-y-2">
-                                <div class="flex justify-between text-xs font-semibold"><span class="text-indigo-200">Progres Kesiapan Kerja</span><span class="text-amber-400">100% Siap</span></div>
-                                <div class="w-full bg-indigo-900 h-2 rounded-full overflow-hidden"><div class="bg-gradient-to-r from-amber-500 to-amber-300 h-full w-full rounded-full"></div></div>
+                            <div class="bg-lpk-gold p-6 rounded-3xl text-lpk-charcoal shadow-md flex items-center justify-between">
+                                <span class="font-extrabold text-sm">Mentoring 1-on-1</span>
+                                <span class="text-xl">➔</span>
                             </div>
                         </div>
+                        
+                        <!-- Kanan Kolase -->
+                        <div class="space-y-4 pt-8">
+                            <div class="bg-lpk-teal text-lpk-bg p-6 rounded-3xl aspect-[4/5] flex flex-col justify-between shadow-lg relative overflow-hidden">
+                                <div class="absolute -right-10 -top-10 w-32 h-32 bg-lpk-gold/20 rounded-full blur-xl"></div>
+                                <span class="text-lpk-gold text-xs font-mono">#Karier</span>
+                                <div>
+                                    <div class="text-3xl mb-2">🎓</div>
+                                    <h4 class="font-extrabold text-lg leading-snug">Siap Kerja Dalam 3 Bulan Pelatihan</h4>
+                                    <p class="text-lpk-bg/70 text-[11px] mt-2">Dukungan karir dan penyaluran kerja selamanya.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOK KEUNGGULAN / STATISTIK -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-lpk-teal rounded-[2.5rem] p-8 sm:p-14 text-lpk-bg shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative overflow-hidden">
+                <!-- Elemen Dekoratif -->
+                <div class="absolute right-0 bottom-0 w-96 h-96 bg-lpk-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="lg:col-span-6 space-y-4">
+                    <span class="text-lpk-gold text-xs font-extrabold tracking-widest uppercase">MENGAPA MEMILIH KAMI?</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                        Peluang Tepat Mengubah Mimpi Menjadi Pencapaian Tanpa Batas.
+                    </h2>
+                    <p class="text-lpk-bg/80 text-sm leading-relaxed max-w-lg">
+                        Didirikan dengan fokus pada keahlian praktis, LPK Karier Sukses menjembatani kesenjangan antara dunia pendidikan dengan kebutuhan nyata industri masa kini.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-6 grid grid-cols-2 gap-6 pt-4 lg:pt-0">
+                    <div class="bg-lpk-charcoal/40 backdrop-blur-md p-6 rounded-3xl border border-lpk-bg/10">
+                        <div class="text-4xl sm:text-5xl font-extrabold text-lpk-gold mb-2">30%</div>
+                        <p class="text-xs text-lpk-bg/80 font-medium">Lebih cepat diserap dunia kerja dibanding pendidikan konvensional.</p>
+                    </div>
+                    <div class="bg-lpk-charcoal/40 backdrop-blur-md p-6 rounded-3xl border border-lpk-bg/10">
+                        <div class="text-4xl sm:text-5xl font-extrabold text-lpk-bg mb-2">95%</div>
+                        <p class="text-xs text-lpk-bg/80 font-medium">Alumni menilai kurikulum kami sangat relevan dengan industri.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 2. PRODUK / KURSUS UNGGULAN -->
-    <section class="py-20 bg-slate-50">
+    <!-- KATALOG KURSUS UNGGULAN -->
+    <section class="py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
                 <div>
-                    <span class="text-indigo-600 font-extrabold text-xs uppercase tracking-wider bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">Pilihan Terfavorit</span>
-                    <h2 class="text-3xl font-extrabold text-slate-900 mt-3 tracking-tight">Program Kursus Unggulan</h2>
-                    <p class="text-slate-500 text-sm mt-2 max-w-xl">Pilih program pelatihan dengan permintaan industri tertinggi saat ini dan mulai bangun portofoliomu.</p>
+                    <span class="text-lpk-teal font-extrabold text-xs uppercase tracking-widest bg-lpk-mint px-3.5 py-1.5 rounded-full">Katalog Pelatihan</span>
+                    <h2 class="text-3xl font-extrabold text-lpk-teal mt-3 tracking-tight">Program Kursus Unggulan</h2>
+                    <p class="text-lpk-charcoal/70 text-sm mt-2 max-w-xl">Pilih program pelatihan yang dirancang khusus untuk mempercepat karir profesionalmu.</p>
                 </div>
-                <a href="#" class="inline-flex items-center space-x-2 text-sm font-bold text-indigo-600 hover:text-indigo-700 mt-4 md:mt-0"><span>Lihat Semua Kursus →</span></a>
+                <a href="#" class="inline-flex items-center space-x-2 text-sm font-bold text-lpk-teal hover:text-lpk-gold mt-4 md:mt-0 transition-colors">
+                    <span>Lihat Semua Program →</span>
+                </a>
             </div>
+
+            <!-- Grid Kartu Kursus -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($kursusUnggulan as $item)
                     <x-kartu-kursus :kursus="$item" />
                 @empty
-                    <p class="col-span-3 text-center text-slate-400 py-10">Belum ada kursus unggulan di database.</p>
+                    <div class="col-span-3 text-center py-12 bg-lpk-mint rounded-3xl border border-dashed border-lpk-teal/20">
+                        <p class="text-lpk-charcoal/60 font-semibold">Belum ada data kursus unggulan.</p>
+                    </div>
                 @endforelse
             </div>
         </div>
