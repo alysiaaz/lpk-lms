@@ -17,7 +17,7 @@
         <!-- Teks Kartu -->
         <div class="p-4 pt-6">
             <h3 class="font-extrabold text-lg text-lpk-teal group-hover:text-lpk-gold transition-colors line-clamp-1">
-                <a href="#">{{ $kursus->judul }}</a>
+                <a href="{{ url('/kursus/' . $kursus->slug) }}">{{ $kursus->judul }}</a>
             </h3>
             <p class="text-lpk-charcoal/80 text-xs mt-2.5 leading-relaxed line-clamp-2 font-normal">
                 {{ $kursus->deskripsi }}
@@ -36,7 +36,7 @@
 
     <!-- Tombol Aksi -->
     <div class="px-4 pb-2 pt-2">
-        <a href="#" class="w-full block text-center bg-lpk-teal hover:bg-lpk-charcoal text-lpk-bg text-xs font-bold py-3 rounded-xl transition-colors shadow-sm">
+        <a href="{{ url ('/kursus/' . $kursus->slug) }}" class="w-full block text-center bg-lpk-teal hover:bg-lpk-charcoal text-lpk-bg text-xs font-bold py-3 rounded-xl transition-colors shadow-sm">
             Pelajari Program →
         </a>
     </div>
