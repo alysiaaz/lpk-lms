@@ -1,13 +1,20 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BerandaController;
-use App\Http\Controllers\KursusController;
 
-//route public area
-Route::get('/', [BerandaController::class, 'index'])->name('beranda');
-Route::get('/tentang', [BerandaController::class, 'tentang'])->name('tentang');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-//route katalog & detail khusus
-Route::get('kursus', [KursusController::class, 'index'])->name('kursus.index');
-Route::get('/kursus/{slug}', [KursusController::class, 'show'])->name('kursus.show');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
