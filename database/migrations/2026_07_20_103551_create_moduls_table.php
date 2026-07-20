@@ -9,11 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up() {
-        Schema::create('settings', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('moduls', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
-            $table->text('value')->nullable();
+            $table->foreignId('kursus_id')->constrained('kursuses')->onDelete('cascade');
+            $table->string('judul_modul');
+            $table->integer('urutan')->default(1);
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengaturan');
+        Schema::dropIfExists('moduls');
     }
 };
