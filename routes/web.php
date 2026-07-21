@@ -5,6 +5,7 @@ use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\KursusController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Peserta\DashboardController as PesertaDashboard;
+use App\Http\Controllers\EnrollmentController;
 
 // Publik
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
@@ -28,6 +29,11 @@ Route::middleware(['auth'])->prefix('peserta')->group(function() {
     Route::get('/dashboard', [PesertaDashboard::class, 'index'])->name('peserta.dashboard');
     Route::get('/kursus-saya', [PesertaDashboard::class, 'kursusSaya'])->name('peserta.kursus');
 });
+
+// pendaftaran (enroll) peserta ke sebuah kursus
+Route::post('/kursus/{kursus:slug}/daftar', [EnrollmentController::class, 'store'])
+    ->middleware(['auth'])
+    ->name('enroll.store');
 
 // admin (wajib login dengan role admin)
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function() {

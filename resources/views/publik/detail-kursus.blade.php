@@ -72,9 +72,30 @@
                     </div>
 
                     <div class="pt-2">
-                        <a href="{{ route('register') }}" class="w-full block text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold py-4 rounded-2xl text-sm transition-all shadow-md">
-                            Daftar Program Sekarang
-                        </a>
+                        @guest
+                            {{-- Belum login: arahkan ke halaman daftar akun dulu --}}
+                            <a href="{{ route('register') }}" class="w-full block text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold py-4 rounded-2xl text-sm transition-all shadow-md">
+                                Daftar Program Sekarang
+                            </a>
+                        @elseif(auth()->user()->role === 'peserta')
+                            @if(auth()->user()->kursuses()->where('kursus_id', $kursus->id)->exists())
+                                {{-- Sudah terdaftar di kursus ini --}}
+                                <a href="{{ route('peserta.kursus') }}" class="w-full block text-center bg-lpk-mint text-lpk-teal font-extrabold py-4 rounded-2xl text-sm transition-all shadow-sm">
+                                    ✓ Sudah Terdaftar — Lihat Kursus Saya
+                                </a>
+                            @else
+                                {{-- Sudah login sebagai peserta, belum daftar kursus ini --}}
+                                <form action="{{ route('enroll.store', $kursus->slug) }}" method="POST" class="w-full">
+                                    @csrf
+                                    <button type="submit" class="w-full block text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold py-4 rounded-2xl text-sm transition-all shadow-md">
+                                        Daftar Program Sekarang
+                                    </button>
+                                </form>
+                            @endif
+                        @else
+                            {{-- Login sebagai admin: tidak perlu tombol daftar --}}
+                            <p class="text-center text-xs text-lpk-mint/80 font-semibold">Masuk sebagai admin</p>
+                        @endif
                     </div>
                 </div>
             </div>

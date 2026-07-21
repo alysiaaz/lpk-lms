@@ -19,6 +19,13 @@ class DashboardController extends Controller
 
     public function kursusSaya()
     {
-        return view('peserta.kursus-saya');
+        $kursusSaya = auth()->user()
+            ->kursuses()
+            ->with('kategori')
+            ->orderBy('enrollments.created_at', 'desc')
+            ->get();
+
+        return view('peserta.kursus-saya', compact('kursusSaya'));
     }
 }
+

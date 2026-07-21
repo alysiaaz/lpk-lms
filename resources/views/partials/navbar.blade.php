@@ -19,9 +19,17 @@
             <a href="{{ url('/tentang') }}" class="{{ request()->is('tentang*') ? 'text-lpk-teal font-bold border-b-2 border-lpk-gold pb-1' : 'hover:text-lpk-teal transition-colors' }}">
                 Tentang Kami
             </a>
+
+            {{-- Menu tambahan khusus peserta yang sudah login --}}
+            @auth
+                @if(auth()->user()->role === 'peserta')
+                    <a href="{{ route('peserta.kursus') }}" class="{{ request()->routeIs('peserta.kursus') ? 'text-lpk-teal font-bold border-b-2 border-lpk-gold pb-1' : 'hover:text-lpk-teal transition-colors' }}">
+                        Kursus Saya
+                    </a>
+                @endif
+            @endauth
         </nav>
 
-        <!-- Tombol Action (Pintar: Berubah Sesuai Status Login) -->
         <div class="flex items-center space-x-4">
             @guest
                 <!-- Jika Belum Login -->
@@ -34,7 +42,7 @@
             @else
                 <!-- Jika Sudah Login -->
                 <a href="{{ url('/dashboard') }}" class="bg-lpk-teal text-lpk-bg hover:bg-lpk-charcoal text-xs font-extrabold px-5 py-2.5 rounded-full shadow-sm transition-all flex items-center space-x-2">
-                    <span>📊 Dasbor Saya</span>
+                    <span> Dasbor Saya</span>
                 </a>
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
