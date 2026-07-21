@@ -41,7 +41,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class);
     Route::resource('kursus', App\Http\Controllers\Admin\KursusController::class);
-    Route::get('/kursus/{kursus}/modul', [App\Http\Controllers\Admin\ModulController::class, 'index'])->name('kursus.modul.index');
+    Route::prefix('kursus/{kursus}/modul')->name('kursus.modul.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\ModulController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Admin\ModulController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Admin\ModulController::class, 'store'])->name('store');
+        Route::get('/{modul}/edit', [App\Http\Controllers\Admin\ModulController::class, 'edit'])->name('edit');
+        Route::put('/{modul}', [App\Http\Controllers\Admin\ModulController::class, 'update'])->name('update');
+        Route::delete('/{modul}', [App\Http\Controllers\Admin\ModulController::class, 'destroy'])->name('destroy');
+    });
     
     // Rute Settings
     Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->name('settings.edit');
