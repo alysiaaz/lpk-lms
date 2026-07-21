@@ -7,24 +7,61 @@
     $buttonClass = $isAdmin
         ? 'bg-admin-accent text-white px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-admin-accent-dark transition'
         : 'bg-lpk-teal hover:bg-lpk-charcoal text-lpk-bg font-extrabold px-6 py-3 rounded-2xl text-sm transition-all shadow-md';
+    $ghostButtonClass = $isAdmin
+        ? 'bg-admin-bg text-admin-muted px-4 py-2 rounded-lg font-semibold text-xs hover:bg-red-50 hover:text-red-600 transition'
+        : 'bg-lpk-bg text-lpk-charcoal/70 px-4 py-2 rounded-xl font-bold text-xs hover:bg-red-50 hover:text-red-600 transition border border-lpk-teal/10';
     $headingClass = $isAdmin ? 'text-lg font-bold text-admin-text' : 'text-lg font-extrabold text-lpk-teal';
     $subClass = $isAdmin ? 'mt-1 text-sm text-admin-muted' : 'mt-1 text-xs text-lpk-charcoal/70 font-medium';
     $errorClass = 'text-red-600 text-xs mt-1 font-semibold';
+    $ringClass = $isAdmin ? 'ring-admin-border' : 'ring-lpk-teal/15';
 @endphp
 
 <section>
     <header>
         <h2 class="{{ $headingClass }}">{{ __('Informasi Profil') }}</h2>
-        <p class="{{ $subClass }}">{{ __('Perbarui nama dan alamat email akunmu.') }}</p>
+        <p class="{{ $subClass }}">{{ __('Perbarui foto, nama, dan alamat email akunmu.') }}</p>
     </header>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-5">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-5" enctype="multipart/form-data">
         @csrf
         @method('patch')
+
+        <!-- Foto Profil -->
+        <div class="flex items-center gap-5">
+            <img src="{{ $user->avatarUrl() }}" alt="Foto profil {{ $user->name }}"
+                 class="w-16 h-16 rounded-full object-cover ring-2 {{ $ringClass }}"
+                 id="avatar-preview">
+
+            <div class="space-y-2">
+                <label class="{{ $ghostButtonClass }} inline-block cursor-pointer">
+                    Ganti Foto
+                    <input type="file" name="avatar" id="avatar-input" accept="image/*" class="hidden">
+                </label>
+                <p id="avatar-filename" class="text-[11px] {{ $isAdmin ? 'text-admin-muted' : 'text-lpk-charcoal/50' }}"></p>
+                @error('avatar') <p class="{{ $errorClass }}">{{ $message }}</p> @enderror
+                <p class="text-[11px] {{ $isAdmin ? 'text-admin-muted' : 'text-lpk-charcoal/50' }}">JPG/PNG, maks 2MB.</p>
+            </div>
+        </div>
+
+        <script>
+            (function () {
+                var input = document.getElementById('avatar-input');
+                var preview = document.getElementById('avatar-preview');
+                var filenameLabel = document.getElementById('avatar-filename');
+                if (!input || !preview) return;
+
+                input.addEventListener('change', function () {
+                    if (!this.files || !this.files[0]) return;
+                    var file = this.files[0];
+                    preview.src = URL.createObjectURL(file);
+                    if (filenameLabel) filenameLabel.textContent = file.name;
+                });
+            })();
+        </script>
 
         <div>
             <label for="name" class="{{ $labelClass }}">Nama</label>
@@ -61,6 +98,17 @@
             @if (session('status') === 'profile-updated')
                 <p class="text-sm text-emerald-600 font-semibold">{{ __('Tersimpan.') }}</p>
             @endif
+            @if (session('status') === 'avatar-removed')
+                <p class="text-sm text-emerald-600 font-semibold">{{ __('Foto profil dihapus.') }}</p>
+            @endif
         </div>
     </form>
+
+    @if ($user->avatar)
+        <form method="post" action="{{ route('profile.avatar.destroy') }}" class="mt-3" onsubmit="return confirm('Hapus foto profil? Akan diganti dengan avatar inisial.')">
+            @csrf
+            @method('delete')
+            <button type="submit" class="text-xs font-bold text-red-500 hover:underline">Hapus foto profil</button>
+        </form>
+    @endif
 </section>

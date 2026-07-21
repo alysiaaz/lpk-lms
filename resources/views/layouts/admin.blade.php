@@ -139,9 +139,7 @@
                 <h1 class="text-base font-bold text-admin-text">@yield('page-title', 'Dashboard')</h1>
             </div>
             <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 group">
-                <div class="w-9 h-9 rounded-full bg-admin-accent-light text-admin-accent flex items-center justify-center font-bold text-sm group-hover:ring-2 group-hover:ring-admin-accent/30 transition">
-                    {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
-                </div>
+                <img src="{{ auth()->user()->avatarUrl() }}" alt="Foto profil" class="w-9 h-9 rounded-full object-cover ring-2 ring-transparent group-hover:ring-admin-accent/30 transition">
                 <div class="text-sm text-left">
                     <p class="font-semibold text-admin-text leading-tight group-hover:text-admin-accent transition">{{ auth()->user()->name ?? 'Admin' }}</p>
                     <p class="text-xs text-admin-muted leading-tight">Lihat profil</p>

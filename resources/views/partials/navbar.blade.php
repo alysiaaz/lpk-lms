@@ -41,8 +41,9 @@
                 </a>
             @else
                 <!-- Jika Sudah Login -->
-                <a href="{{ route('profile.edit') }}" class="text-sm font-bold text-lpk-charcoal/80 hover:text-lpk-teal transition-colors px-3 py-2 {{ request()->routeIs('profile.edit') ? 'text-lpk-teal' : '' }}">
-                    Profil Saya
+                <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 text-sm font-bold text-lpk-charcoal/80 hover:text-lpk-teal transition-colors px-2 py-2 {{ request()->routeIs('profile.edit') ? 'text-lpk-teal' : '' }}">
+                    <img src="{{ auth()->user()->avatarUrl() }}" alt="Foto profil" class="w-7 h-7 rounded-full object-cover ring-2 ring-lpk-teal/10">
+                    <span class="hidden sm:inline">Profil Saya</span>
                 </a>
                 <a href="{{ url('/dashboard') }}" class="bg-lpk-teal text-lpk-bg hover:bg-lpk-charcoal text-xs font-extrabold px-5 py-2.5 rounded-full shadow-sm transition-all flex items-center space-x-2">
                     <span> Dasbor Saya</span>

@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -32,9 +33,30 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        if ($request->hasFile('avatar')) {
+            if ($request->user()->avatar) {
+                Storage::disk('public')->delete($request->user()->avatar);
+            }
+
+            $request->user()->avatar = $request->file('avatar')->store('avatars', 'public');
+        }
+
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    /**
+     * Remove the user's profile photo, falling back to the initial-based avatar.
+     */
+    public function destroyAvatar(Request $request): RedirectResponse
+    {
+        if ($request->user()->avatar) {
+            Storage::disk('public')->delete($request->user()->avatar);
+            $request->user()->update(['avatar' => null]);
+        }
+
+        return Redirect::route('profile.edit')->with('status', 'avatar-removed');
     }
 
     /**
@@ -47,6 +69,10 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        if ($user->avatar) {
+            Storage::disk('public')->delete($user->avatar);
+        }
 
         Auth::logout();
 
