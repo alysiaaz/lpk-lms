@@ -9,6 +9,10 @@
         </a>
     </div>
 
+    @if(session('success'))
+        <div class="p-3 bg-green-100 text-green-700 rounded-lg text-sm">{{ session('success') }}</div>
+    @endif
+
     <!-- Tampilan yang lebih "Content Management" daripada sekadar tabel -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach($kursuses as $kursus)
@@ -25,6 +29,12 @@
                     Edit Silabus
                 </a>
             </div>
+            <form action="{{ route('admin.kursus.destroy', $kursus->id) }}" method="POST" class="mt-2" onsubmit="return confirm('Hapus kursus {{ $kursus->judul }}? Data peserta yang terdaftar di kursus ini juga akan ikut terhapus.')">
+                @csrf @method('DELETE')
+                <button type="submit" class="w-full text-center bg-red-50 hover:bg-red-100 text-red-600 py-2 rounded-lg font-bold text-sm transition">
+                    Hapus Kursus
+                </button>
+            </form>
         </div>
         @endforeach
     </div>

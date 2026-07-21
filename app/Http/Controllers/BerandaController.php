@@ -11,6 +11,7 @@ class BerandaController extends Controller
     {
         $kursusUnggulan = Kursus::with('kategori')
                                 ->withCount('peserta')
+                                ->where('is_unggulan', true)
                                 ->latest()
                                 ->take(3)
                                 ->get();

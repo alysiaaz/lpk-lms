@@ -3,15 +3,22 @@
 <div class="bg-lpk-mint rounded-3xl border border-lpk-teal/10 p-4 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
     <div>
         <!-- Thumbnail -->
-        <div class="h-48 rounded-2xl bg-gradient-to-tr from-lpk-teal to-lpk-teal/80 relative p-5 flex items-end justify-between overflow-hidden">
-            <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-lpk-gold/20 rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
-            
-            <span class="relative z-10 bg-lpk-bg/90 backdrop-blur-sm text-lpk-teal font-bold text-xs px-3 py-1.5 rounded-full shadow-sm">
-                {{ $kursus->kategori->nama ?? 'Umum' }}
-            </span>
-            <span class="relative z-10 bg-lpk-gold text-lpk-charcoal font-extrabold text-xs px-3 py-1.5 rounded-full shadow-sm flex items-center">
-                ★ Unggulan
-            </span>
+        <div class="h-48 rounded-2xl relative overflow-hidden bg-gradient-to-tr from-lpk-teal to-lpk-teal/80">
+            @if($kursus->thumbnail)
+                <img src="{{ asset('storage/' . $kursus->thumbnail) }}" alt="{{ $kursus->judul }}" class="absolute inset-0 w-full h-full object-cover">
+            @endif
+            <div class="absolute inset-0 p-5 flex items-end justify-between">
+                <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-lpk-gold/20 rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
+
+                <span class="relative z-10 bg-lpk-bg/90 backdrop-blur-sm text-lpk-teal font-bold text-xs px-3 py-1.5 rounded-full shadow-sm">
+                    {{ $kursus->kategori->nama ?? 'Umum' }}
+                </span>
+                @if($kursus->is_unggulan)
+                    <span class="relative z-10 bg-lpk-gold text-lpk-charcoal font-extrabold text-xs px-3 py-1.5 rounded-full shadow-sm flex items-center">
+                        ★ Unggulan
+                    </span>
+                @endif
+            </div>
         </div>
 
         <!-- Teks Kartu -->

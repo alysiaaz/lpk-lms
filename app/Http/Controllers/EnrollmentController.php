@@ -7,9 +7,6 @@ use Illuminate\Http\RedirectResponse;
 
 class EnrollmentController extends Controller
 {
-    /**
-     * Daftarkan peserta yang sedang login ke kursus tertentu.
-     */
     public function store(Kursus $kursus): RedirectResponse
     {
         $user = auth()->user();

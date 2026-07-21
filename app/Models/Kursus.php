@@ -19,7 +19,8 @@ class Kursus extends Model
         'status_kelas', 
         'metode_belajar', 
         'tingkat_kesiapan', 
-        'sertifikat'
+        'sertifikat',
+        'is_unggulan'
     ];
 
     public function kategori()
