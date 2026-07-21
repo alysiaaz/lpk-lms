@@ -30,9 +30,6 @@
                         <a href="{{ url('/kursus') }}" class="w-full sm:w-auto text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold px-8 py-4 rounded-full shadow-md transition-transform transform hover:-translate-y-0.5">
                             Jelajahi Program →
                         </a>
-                        <a href="#" class="w-full sm:w-auto text-center bg-transparent hover:bg-lpk-mint text-lpk-teal font-bold px-6 py-4 rounded-full border border-lpk-teal/30 transition-colors">
-                            Konsultasi Gratis
-                        </a>
                     </div>
 
                     <!-- Mini Statistik Hero -->
@@ -125,7 +122,7 @@
                     <h2 class="text-3xl font-extrabold text-lpk-teal mt-3 tracking-tight">Program Kursus Unggulan</h2>
                     <p class="text-lpk-charcoal/70 text-sm mt-2 max-w-xl">Pilih program pelatihan yang dirancang khusus untuk mempercepat karir profesionalmu.</p>
                 </div>
-                <a href="#" class="inline-flex items-center space-x-2 text-sm font-bold text-lpk-teal hover:text-lpk-gold mt-4 md:mt-0 transition-colors">
+                <a href="{{ url('/kursus') }}" class="inline-flex items-center space-x-2 text-sm font-bold text-lpk-teal hover:text-lpk-gold mt-4 md:mt-0 transition-colors">
                     <span>Lihat Semua Program →</span>
                 </a>
             </div>

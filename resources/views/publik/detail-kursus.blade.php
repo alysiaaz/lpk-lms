@@ -17,9 +17,9 @@
                 <p class="text-lpk-bg/80 text-sm sm:text-base leading-relaxed font-normal">{{ $kursus->deskripsi }}</p>
                 
                 <div class="pt-4 flex flex-wrap items-center gap-6 text-xs font-semibold text-lpk-mint">
-                    <span class="flex items-center">👥 <strong class="text-lpk-gold ml-1.5">{{ $kursus->peserta_count ?? 0 }}</strong> Siswa Terdaftar</span>
-                    <span>⌛ Estimasi Waktu: <strong class="text-lpk-bg">Sesuai Kurikulum</strong></span>
-                    <span>🎓 Sertifikat: <strong class="text-lpk-bg">{{ $kursus->sertifikat }}</strong></span>
+                    <span class="flex items-center"> <strong class="text-lpk-gold ml-1.5">{{ $kursus->peserta_count ?? 0 }}</strong> Siswa Terdaftar</span>
+                    <span> Estimasi Waktu: <strong class="text-lpk-bg">Sesuai Kurikulum</strong></span>
+                    <span> Sertifikat: <strong class="text-lpk-bg">{{ $kursus->sertifikat }}</strong></span>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
 
                     <div class="pt-2">
                         <a href="{{ route('register') }}" class="w-full block text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold py-4 rounded-2xl text-sm transition-all shadow-md">
-                            Daftar Program Sekarang 🚀
+                            Daftar Program Sekarang
                         </a>
                     </div>
                 </div>
