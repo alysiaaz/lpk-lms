@@ -60,7 +60,7 @@
         </div>
 
         <div class="mb-6 flex items-center gap-2">
-            <input type="checkbox" name="is_unggulan" id="is_unggulan" value="1" @checked(old('is_unggulan'))>
+            <input type="checkbox" name="is_unggulan" id="is_unggulan" value="1" @checked(old('is_unggulan') == 1)>
             <label for="is_unggulan" class="font-bold">Tampilkan sebagai Unggulan di Beranda</label>
         </div>
 

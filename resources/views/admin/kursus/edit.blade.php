@@ -62,7 +62,7 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <input type="checkbox" name="is_unggulan" id="is_unggulan" value="1" {{ old('is_unggulan', $kursus->is_unggulan) ? 'checked' : '' }}>
+            <input type="checkbox" name="is_unggulan" id="is_unggulan" value="1" @checked(old('is_unggulan', $kursus->is_unggulan))>
             <label for="is_unggulan" class="font-bold text-lpk-charcoal">Tampilkan sebagai Unggulan di Beranda</label>
         </div>
 

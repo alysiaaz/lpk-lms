@@ -29,7 +29,6 @@
                 <li><a href="{{ url('/') }}" class="hover:text-lpk-gold transition-colors">Beranda</a></li>
                 <li><a href="{{ url('/kursus') }}" class="hover:text-lpk-gold transition-colors">Semua Kursus</a></li>
                 <li><a href="{{ url('/tentang') }}" class="hover:text-lpk-gold transition-colors">Tentang Kami</a></li>
-                <li><a href="{{ url('/register') }}" class="hover:text-lpk-gold transition-colors">Daftar Akun</a></li>
             </ul>
         </div>
 

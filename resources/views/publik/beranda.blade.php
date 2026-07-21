@@ -27,7 +27,7 @@
                     </p>
 
                     <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                        <a href="#" class="w-full sm:w-auto text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold px-8 py-4 rounded-full shadow-md transition-transform transform hover:-translate-y-0.5">
+                        <a href="{{ url('/kursus') }}" class="w-full sm:w-auto text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold px-8 py-4 rounded-full shadow-md transition-transform transform hover:-translate-y-0.5">
                             Jelajahi Program →
                         </a>
                         <a href="#" class="w-full sm:w-auto text-center bg-transparent hover:bg-lpk-mint text-lpk-teal font-bold px-6 py-4 rounded-full border border-lpk-teal/30 transition-colors">
@@ -63,10 +63,6 @@
                                     <div class="text-3xl mb-1">💻</div>
                                     <h4 class="font-bold text-lpk-teal text-sm">Lab Komputer & Coding Intensif</h4>
                                 </div>
-                            </div>
-                            <div class="bg-lpk-gold p-6 rounded-3xl text-lpk-charcoal shadow-md flex items-center justify-between">
-                                <span class="font-extrabold text-sm">Mentoring 1-on-1</span>
-                                <span class="text-xl">➔</span>
                             </div>
                         </div>
                         

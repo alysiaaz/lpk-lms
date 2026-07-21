@@ -11,7 +11,7 @@
 <body class="bg-lpk-bg flex">
     <!-- Sidebar -->
     <aside class="w-64 bg-lpk-teal min-h-screen text-white p-6">
-        <h2 class="text-2xl font-bold mb-10">LPK Karier</h2>
+        <h2 class="text-2xl font-bold mb-10">LPK Karier Sukses</h2>
         <nav class="space-y-4">
             <a href="{{ route('admin.dashboard') }}" class="block p-3 hover:bg-lpk-gold rounded-xl">Dashboard</a>
             <a href="{{ route('admin.kategori.index') }}" class="block p-3 hover:bg-lpk-gold rounded-xl">Kategori</a>
