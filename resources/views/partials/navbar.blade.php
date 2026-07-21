@@ -41,6 +41,9 @@
                 </a>
             @else
                 <!-- Jika Sudah Login -->
+                <a href="{{ route('profile.edit') }}" class="text-sm font-bold text-lpk-charcoal/80 hover:text-lpk-teal transition-colors px-3 py-2 {{ request()->routeIs('profile.edit') ? 'text-lpk-teal' : '' }}">
+                    Profil Saya
+                </a>
                 <a href="{{ url('/dashboard') }}" class="bg-lpk-teal text-lpk-bg hover:bg-lpk-charcoal text-xs font-extrabold px-5 py-2.5 rounded-full shadow-sm transition-all flex items-center space-x-2">
                     <span> Dasbor Saya</span>
                 </a>

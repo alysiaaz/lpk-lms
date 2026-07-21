@@ -6,6 +6,7 @@ use App\Http\Controllers\KursusController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Peserta\DashboardController as PesertaDashboard;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\ProfileController;
 
 // Publik
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
@@ -28,6 +29,13 @@ Route::get('/dashboard', function() {
 Route::middleware(['auth'])->prefix('peserta')->group(function() {
     Route::get('/dashboard', [PesertaDashboard::class, 'index'])->name('peserta.dashboard');
     Route::get('/kursus-saya', [PesertaDashboard::class, 'kursusSaya'])->name('peserta.kursus');
+});
+
+// Profil akun (bisa diakses admin maupun peserta yang sudah login)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 // pendaftaran (enroll) peserta ke sebuah kursus
