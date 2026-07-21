@@ -10,13 +10,13 @@
             <div class="bg-white p-8 rounded-3xl border shadow-sm">
                 <h2 class="text-xl font-bold text-lpk-teal mb-4">Visi Kami</h2>
                 <p class="text-sm text-lpk-charcoal/80 leading-relaxed">
-                    {{ \App\Models\Setting::where('key', 'tentang_visi')->first()->value ?? 'Visi belum diatur oleh admin.' }}
+                    {{ \App\Models\Setting::where('key', 'tentang_visi')->value('value') ?? 'Visi belum diatur oleh admin.' }}
                 </p>
             </div>
             <div class="bg-white p-8 rounded-3xl border shadow-sm">
                 <h2 class="text-xl font-bold text-lpk-teal mb-4">Misi Kami</h2>
                 <p class="text-sm text-lpk-charcoal/80 leading-relaxed">
-                    {{ \App\Models\Setting::where('key', 'tentang_misi')->first()->value ?? 'Misi belum diatur oleh admin.' }}
+                    {{ \App\Models\Setting::where('key', 'tentang_misi')->value('value') ?? 'Misi belum diatur oleh admin.' }}
                 </p>
             </div>
         </div>

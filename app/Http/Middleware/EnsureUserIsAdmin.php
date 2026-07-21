@@ -11,9 +11,8 @@ class EnsureUserIsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->check() && auth()->user()->role === 'admin') {
-            return $next($request);
+        return $next($request);
         }
-
-        return redirect()->route('beranda');
+        return redirect()->route('beranda')->with('error', 'Anda tidak memiliki akses admin.');
     }
 }

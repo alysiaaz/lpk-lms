@@ -10,7 +10,17 @@ class Kursus extends Model
     use HasFactory;
 
     protected $table = 'kursuses';
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'kategori_id', 
+        'judul', 
+        'slug', 
+        'deskripsi', 
+        'thumbnail', 
+        'status_kelas', 
+        'metode_belajar', 
+        'tingkat_kesiapan', 
+        'sertifikat'
+    ];
 
     public function kategori()
     {
@@ -22,5 +32,10 @@ class Kursus extends Model
         return $this->belongsToMany(User::class, 'enrollments', 'kursus_id', 'user_id')
                     ->withPivot('status', 'created_at')
                     ->withTimestamps();
+    }
+
+    public function moduls()
+    {
+        return $this->hasMany(Modul::class, 'kursus_id')->orderBy('urutan');
     }
 }

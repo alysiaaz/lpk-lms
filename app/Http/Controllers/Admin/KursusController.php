@@ -12,8 +12,8 @@ class KursusController extends Controller
 {
     public function index()
     {
-        $kursus = Kursus::with('kategori')->withCount('peserta')->latest()->get();
-        return view('admin.kursus.index', compact('kursus'));
+        $kursuses = Kursus::with('kategori')->withCount('peserta')->latest()->get();
+        return view('admin.kursus.index', compact('kursuses'));
     }
 
     public function create()

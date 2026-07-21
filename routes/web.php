@@ -30,16 +30,19 @@ Route::middleware(['auth'])->prefix('peserta')->group(function() {
 });
 
 // admin (wajib login dengan role admin)
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
-    Route::middleware(['admin'])->group(function() {
-        
-        Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
-        Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class);
-        Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->name('settings.edit');
-        Route::put('/settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
-        Route::resource('kursus', App\Http\Controllers\Admin\KursusController::class);
-        Route::get('/enrollments', [App\Http\Controllers\Admin\EnrollmentController::class, 'index'])->name('enrollment.index');
-    });
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function() {
+    
+    Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
+    Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class);
+    Route::resource('kursus', App\Http\Controllers\Admin\KursusController::class);
+    Route::get('/kursus/{kursus}/modul', [App\Http\Controllers\Admin\ModulController::class, 'index'])->name('kursus.modul.index');
+    
+    // Rute Settings
+    Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->name('settings.edit');
+    Route::put('/settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
+    
+    // Rute Enrollments
+    Route::get('/enrollments', [App\Http\Controllers\Admin\EnrollmentController::class, 'index'])->name('enrollment.index');
 });
 
 
