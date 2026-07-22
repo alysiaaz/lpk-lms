@@ -29,6 +29,10 @@ Route::get('/dashboard', function() {
 Route::middleware(['auth'])->prefix('peserta')->group(function() {
     Route::get('/dashboard', [PesertaDashboard::class, 'index'])->name('peserta.dashboard');
     Route::get('/kursus-saya', [PesertaDashboard::class, 'kursusSaya'])->name('peserta.kursus');
+
+    // Materi belajar (khusus peserta yang sudah enroll di kursus terkait)
+    Route::get('/kursus/{kursus}/materi', [App\Http\Controllers\Peserta\MateriController::class, 'index'])->name('peserta.materi.index');
+    Route::get('/materi/{materi}', [App\Http\Controllers\Peserta\MateriController::class, 'show'])->name('peserta.materi.show');
 });
 
 // Profil akun (bisa diakses admin maupun peserta yang sudah login)
@@ -57,6 +61,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/{modul}/edit', [App\Http\Controllers\Admin\ModulController::class, 'edit'])->name('edit');
         Route::put('/{modul}', [App\Http\Controllers\Admin\ModulController::class, 'update'])->name('update');
         Route::delete('/{modul}', [App\Http\Controllers\Admin\ModulController::class, 'destroy'])->name('destroy');
+
+        Route::prefix('{modul}/materi')->name('materi.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Admin\MateriController::class, 'index'])->name('index');
+            Route::get('/create', [App\Http\Controllers\Admin\MateriController::class, 'create'])->name('create');
+            Route::post('/', [App\Http\Controllers\Admin\MateriController::class, 'store'])->name('store');
+            Route::get('/{materi}/edit', [App\Http\Controllers\Admin\MateriController::class, 'edit'])->name('edit');
+            Route::put('/{materi}', [App\Http\Controllers\Admin\MateriController::class, 'update'])->name('update');
+            Route::delete('/{materi}', [App\Http\Controllers\Admin\MateriController::class, 'destroy'])->name('destroy');
+        });
     });
     
     // Rute Settings

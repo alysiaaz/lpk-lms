@@ -10,4 +10,9 @@ class Modul extends Model
     public function kursus() {
         return $this->belongsTo(Kursus::class);
     }
+
+    public function materis()
+    {
+        return $this->hasMany(Materi::class)->orderBy('urutan');
+    }
 }

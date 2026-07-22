@@ -33,6 +33,9 @@
                     <td class="px-6 py-4 text-sm text-admin-muted">{{ $modul->urutan }}</td>
                     <td class="px-6 py-4 font-semibold text-admin-text text-sm">{{ $modul->judul_modul }}</td>
                     <td class="px-6 py-4 space-x-3">
+                        <a href="{{ route('admin.kursus.modul.materi.index', [$kursus->id, $modul->id]) }}" class="text-admin-accent font-semibold hover:underline text-sm">
+                            Materi
+                        </a>
                         <a href="{{ route('admin.kursus.modul.edit', [$kursus->id, $modul->id]) }}" class="text-admin-accent font-semibold hover:underline text-sm">
                             Edit
                         </a>

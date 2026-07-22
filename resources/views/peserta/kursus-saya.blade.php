@@ -39,9 +39,16 @@
                     </span>
                 </div>
 
-                <a href="{{ url('/kursus/' . $kursus->slug) }}" class="shrink-0 text-center bg-lpk-teal hover:bg-lpk-charcoal text-lpk-bg text-xs font-extrabold px-6 py-3 rounded-full shadow-sm transition-all">
-                    Lihat Kursus
-                </a>
+                <div class="shrink-0 flex flex-col sm:flex-row gap-2">
+                    @if($kursus->pivot->status === 'aktif')
+                        <a href="{{ route('peserta.materi.index', $kursus->id) }}" class="text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal text-xs font-extrabold px-6 py-3 rounded-full shadow-sm transition-all">
+                            Lihat Materi
+                        </a>
+                    @endif
+                    <a href="{{ url('/kursus/' . $kursus->slug) }}" class="text-center bg-lpk-teal hover:bg-lpk-charcoal text-lpk-bg text-xs font-extrabold px-6 py-3 rounded-full shadow-sm transition-all">
+                        Lihat Kursus
+                    </a>
+                </div>
             </div>
         @empty
             <div class="bg-lpk-mint rounded-3xl border border-lpk-teal/10 p-10 text-center space-y-4">
