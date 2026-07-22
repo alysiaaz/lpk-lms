@@ -9,24 +9,46 @@ use Illuminate\Http\Request;
 
 class KursusController extends Controller
 {
-    public function beranda()
-    {
-        $kursusUnggulan = Kursus::with('kategori')
-            ->where('is_unggulan', true)
-            ->latest()
-            ->take(6) 
-            ->get();
-
-        return view('beranda', compact('kursusUnggulan'));
-    }
-
     public function index(Request $request)
     {
-        $semuaKursus = Kursus::with('kategori')->latest()->get();
+        // Query kursus dengan search, filter, dan pagination
+        $query = Kursus::with('kategori')->withCount('peserta');
+
+        // Search by judul atau deskripsi
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', "%{$search}%")
+                  ->orWhere('deskripsi', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by kategori
+        if ($request->filled('kategori_id')) {
+            $query->where('kategori_id', $request->kategori_id);
+        }
+
+        // Sort/ordering
+        if ($request->filled('sort')) {
+            match ($request->sort) {
+                'terbaru' => $query->latest(),
+                'terlama' => $query->oldest(),
+                'paling-diminati' => $query->withCount('peserta')->orderByDesc('peserta_count'),
+                'harga-murah' => $query->orderBy('harga'),
+                'harga-mahal' => $query->orderByDesc('harga'),
+                default => $query->latest(),
+            };
+        }
+
+        // Pagination: 12 kursus per halaman
+        $semuaKursus = $query->paginate(12);
+
+        // Data untuk filter UI
         $kategoris = Kategori::all();
         $kursusUnggulan = Kursus::with('kategori')
             ->where('is_unggulan', true)
             ->latest()
+            ->take(6)
             ->get();
 
         return view('publik.katalog', compact('semuaKursus', 'kategoris', 'kursusUnggulan'));
@@ -36,7 +58,7 @@ class KursusController extends Controller
     {
         $kursus = Kursus::with('kategori')->where('slug', $slug)->firstOrFail();
 
-       // kursus terkait pd halaman detail
+        // kursus terkait di halaman detail
         $kursusTerkait = Kursus::with('kategori')
             ->where('kategori_id', $kursus->kategori_id)
             ->where('id', '!=', $kursus->id)

@@ -36,6 +36,9 @@ Route::middleware(['auth'])->prefix('peserta')->group(function() {
     // Materi belajar (khusus peserta yang sudah enroll di kursus terkait)
     Route::get('/kursus/{kursus}/materi', [App\Http\Controllers\Peserta\MateriController::class, 'index'])->name('peserta.materi.index');
     Route::get('/materi/{materi}', [App\Http\Controllers\Peserta\MateriController::class, 'show'])->name('peserta.materi.show');
+    
+    // Rute BARU untuk menandai materi selesai/batal selesai
+    Route::post('/materi/{materi}/progress', [App\Http\Controllers\Peserta\MateriController::class, 'toggleProgress'])->name('peserta.materi.progress');
 });
 
 // Profil akun (bisa diakses admin maupun peserta yang sudah login)
@@ -91,6 +94,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Rute Enrollments
     Route::get('/enrollments', [App\Http\Controllers\Admin\EnrollmentController::class, 'index'])->name('enrollment.index');
 });
-
 
 require __DIR__.'/auth.php';

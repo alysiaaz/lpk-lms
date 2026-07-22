@@ -19,10 +19,10 @@ class DashboardController extends Controller
 
     public function kursusSaya()
     {
-        $kursusSaya = auth()->user()
-            ->kursuses()
-            ->with('kategori')
-            ->orderBy('enrollments.created_at', 'desc')
+        // Cukup eager load 'moduls.materis' agar tidak memberatkan database (N+1 issue)
+        $kursusSaya = auth()->user()->kursuses()
+            ->with(['moduls.materis']) 
+            ->latest('enrollments.created_at')
             ->get();
 
         return view('peserta.kursus-saya', compact('kursusSaya'));

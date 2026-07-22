@@ -9,23 +9,7 @@
             <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Temukan Program Pelatihanmu</h1>
             <p class="text-lpk-bg/80 text-sm max-w-xl mx-auto font-normal">Kuasai skill baru yang paling dicari oleh industri saat ini, diajar langsung oleh praktisi berpengalaman.</p>
 
-            <!-- FORM PENCARIAN & FILTER -->
-            <div class="pt-6 max-w-2xl mx-auto">
-                <form action="{{ url('/kursus') }}" method="GET" class="flex flex-col sm:flex-row items-center gap-2 bg-lpk-bg p-2 rounded-3xl shadow-xl">
-                    <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari keahlian (misal: Laravel, Figma, Marketing)..." class="w-full px-4 py-3 text-sm text-lpk-charcoal focus:outline-none bg-transparent font-medium">
-                    
-                    <select name="kategori" class="w-full sm:w-auto px-4 py-3 text-sm bg-lpk-mint text-lpk-teal font-bold rounded-2xl focus:outline-none cursor-pointer border border-lpk-teal/10">
-                        <option value="">Semua Kategori</option>
-                        @foreach($kategoris as $kat)
-                            <option value="{{ $kat->slug }}" {{ request('kategori') == $kat->slug ? 'selected' : '' }}>{{ $kat->nama }}</option>
-                        @endforeach
-                    </select>
-
-                    <button type="submit" class="w-full sm:w-auto bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold px-8 py-3 rounded-2xl text-sm transition-all shadow-sm shrink-0">
-                        Cari
-                    </button>
-                </form>
-            </div>
+            <!-- FORM PENCARIAN & FILTER DI BANNER -->
         </div>
     </section>
 
@@ -33,25 +17,92 @@
     <section class="py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Informasi Hasil Filter -->
-            @if(request('q') || request('kategori'))
+            @if(request('search') || request('kategori_id'))
                 <div class="mb-8 flex items-center justify-between bg-lpk-mint p-4 rounded-2xl border border-lpk-teal/10">
-                    <span class="text-xs font-bold text-lpk-teal">Menampilkan hasil pencarian untuk: <strong class="text-lpk-charcoal font-extrabold">"{{ request('q') ?: request('kategori') }}"</strong></span>
-                    <a href="{{ url('/kursus') }}" class="text-xs font-extrabold text-red-600 hover:underline">✕ Reset Filter</a>
+                    <span class="text-xs font-bold text-lpk-teal">Menampilkan hasil pencarian</span>
+                    <a href="{{ route('kursus.index') }}" class="text-xs font-extrabold text-red-600 hover:underline">✕ Reset Filter</a>
                 </div>
             @endif
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($semuaKursus as $item)
-                    <!-- Menggunakan ulang komponen kartu kursus kita! -->
-                    <x-kartu-kursus :kursus="$item" />
+            <!-- Filter Bar -->
+            <div class="bg-white rounded-2xl shadow-sm border border-lpk-teal/10 p-6 mb-8">
+                <form method="GET" action="{{ route('kursus.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Search input -->
+                    <div>
+                        <label class="block text-sm font-bold text-lpk-teal mb-2">Cari Kursus</label>
+                        <input type="text" name="search" value="{{ request('search') }}" 
+                            placeholder="Cari judul atau deskripsi..." 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-lpk-teal focus:border-lpk-teal transition-colors">
+                    </div>
+
+                    <!-- Category filter -->
+                    <div>
+                        <label class="block text-sm font-bold text-lpk-teal mb-2">Kategori</label>
+                        <select name="kategori_id" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-lpk-teal focus:border-lpk-teal transition-colors">
+                            <option value="">Semua Kategori</option>
+                            @foreach($kategoris as $kategori)
+                                <option value="{{ $kategori->id }}" 
+                                        {{ request('kategori_id') == $kategori->id ? 'selected' : '' }}>
+                                    {{ $kategori->nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Sort -->
+                    <div>
+                        <label class="block text-sm font-bold text-lpk-teal mb-2">Urutkan</label>
+                        <select name="sort" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-lpk-teal focus:border-lpk-teal transition-colors">
+                            <option value="terbaru" {{ request('sort') == 'terbaru' ? 'selected' : '' }}>Terbaru</option>
+                            <option value="terlama" {{ request('sort') == 'terlama' ? 'selected' : '' }}>Terlama</option>
+                            <option value="paling-diminati" {{ request('sort') == 'paling-diminati' ? 'selected' : '' }}>Paling Diminati</option>
+                            <option value="harga-murah" {{ request('sort') == 'harga-murah' ? 'selected' : '' }}>Harga Murah</option>
+                            <option value="harga-mahal" {{ request('sort') == 'harga-mahal' ? 'selected' : '' }}>Harga Mahal</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div class="flex items-end gap-2">
+                        <button type="submit" class="w-full bg-lpk-teal hover:bg-opacity-90 text-white font-bold py-2 px-4 rounded-xl transition">
+                            Cari
+                        </button>
+                        <a href="{{ route('kursus.index') }}" class="w-full bg-lpk-mint hover:bg-lpk-teal hover:text-white text-lpk-teal font-bold py-2 px-4 rounded-xl text-center transition">
+                            Reset
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Results count -->
+            <div class="mb-6">
+                <p class="text-gray-600">
+                    Menampilkan <strong>{{ $semuaKursus->count() }}</strong> dari 
+                    <strong>{{ $semuaKursus->total() }}</strong> kursus
+                    @if(request('search'))
+                        dengan pencarian: <strong>"{{ request('search') }}"</strong>
+                    @endif
+                </p>
+            </div>
+
+            <!-- Kursus Grid (HANYA 1 GRID) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                @forelse($semuaKursus as $kursus)
+                    <x-kartu-kursus :kursus="$kursus" />
                 @empty
-                    <div class="col-span-3 text-center py-16 bg-lpk-mint rounded-3xl border border-dashed border-lpk-teal/20 space-y-3">
-                        <div class="text-4xl">🔍</div>
-                        <h3 class="font-bold text-lpk-teal text-lg">Program Tidak Ditemukan</h3>
-                        <p class="text-lpk-charcoal/70 text-xs max-w-sm mx-auto font-normal">Maaf, kursus yang kamu cari belum tersedia atau kata kuncinya kurang tepat.</p>
-                        <a href="{{ url('/kursus') }}" class="inline-block bg-lpk-teal text-lpk-bg text-xs font-bold px-6 py-2.5 rounded-xl mt-2">Lihat Semua Kursus</a>
+                    <div class="col-span-full text-center py-12">
+                        <div class="text-4xl mb-3">🔍</div>
+                        <p class="text-gray-500 text-lg font-bold">Tidak ada kursus yang sesuai</p>
+                        <p class="text-gray-400 text-sm mb-4">Maaf, kursus yang kamu cari belum tersedia atau kata kuncinya kurang tepat.</p>
+                        <a href="{{ route('kursus.index') }}" class="text-blue-600 hover:underline mt-2 inline-block font-semibold">
+                            Kembali ke katalog lengkap
+                        </a>
                     </div>
                 @endforelse
+            </div>
+
+            <!-- Pagination -->
+            <div class="mb-12">
+                {{ $semuaKursus->appends(request()->query())->links() }}
             </div>
         </div>
     </section>

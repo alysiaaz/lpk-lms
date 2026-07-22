@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Materi;
 
 #[Fillable(['name', 'email', 'password', 'role', 'avatar'])]
 #[Hidden(['password', 'remember_token'])]
@@ -57,5 +58,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Kursus::class, 'enrollments', 'user_id', 'kursus_id')
                     ->withPivot('status', 'created_at')
                     ->withTimestamps();
+    }
+
+    public function materiSelesai()
+    {
+        return $this->belongsToMany(Materi::class, 'progress_materi', 'user_id', 'materi_id')->withTimestamps();
     }
 }

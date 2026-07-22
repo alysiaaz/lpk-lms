@@ -9,21 +9,28 @@ use Illuminate\Http\Request;
 
 class MateriController extends Controller
 {
-    /**
-     * Daftar modul & materi untuk sebuah kursus yang sedang diikuti peserta.
-     */
     public function index(Kursus $kursus)
     {
         $this->pastikanTerdaftar($kursus);
 
         $kursus->load(['moduls.materis']);
 
-        return view('peserta.materi.index', compact('kursus'));
+        // 1. Ambil semua ID materi dari kursus ini
+        $materiIds = $kursus->moduls->flatMap->materis->pluck('id');
+        $totalMateri = $materiIds->count();
+
+        // 2. Hitung berapa materi dari kursus ini yang sudah dibuka (diselesaikan) oleh user
+        $materiSelesai = auth()->user()
+            ->materiSelesai()
+            ->whereIn('materi_id', $materiIds)
+            ->count();
+
+        // 3. Hitung persentase
+        $persentase = $totalMateri > 0 ? round(($materiSelesai / $totalMateri) * 100) : 0;
+
+        return view('peserta.materi.index', compact('kursus', 'totalMateri', 'materiSelesai', 'persentase'));
     }
 
-    /**
-     * Halaman viewer untuk satu materi (PDF/video).
-     */
     public function show(Materi $materi)
     {
         $materi->load('modul.kursus');
@@ -31,13 +38,16 @@ class MateriController extends Controller
 
         $this->pastikanTerdaftar($kursus);
 
+        // OTOMATIS TANDAI SELESAI
+        // Jika materi ini belum ada di daftar materi selesai user, maka tambahkan
+        $user = auth()->user();
+        if (!$user->materiSelesai->contains($materi->id)) {
+            $user->materiSelesai()->attach($materi->id);
+        }
+
         return view('peserta.materi.show', compact('materi', 'kursus'));
     }
 
-    /**
-     * Pastikan peserta yang login sudah terdaftar (enroll) pada kursus ini.
-     * Kalau belum, tolak akses dan arahkan ke halaman kursus.
-     */
     private function pastikanTerdaftar(Kursus $kursus): void
     {
         $terdaftar = auth()->user()
