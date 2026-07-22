@@ -34,6 +34,13 @@
             <textarea name="deskripsi" rows="4" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none" required>{{ old('deskripsi', $kursus->deskripsi) }}</textarea>
         </div>
 
+        <div>
+            <label class="block text-sm font-semibold text-admin-text mb-1.5">Harga (Rp)</label>
+            <input type="number" name="harga" min="0" step="1000" value="{{ old('harga', $kursus->harga) }}" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none">
+            <p class="text-xs text-admin-muted mt-1">Isi 0 jika kursus ini gratis.</p>
+            @error('harga') <p class="text-red-600 text-xs mt-1">{{ $message }}</p> @enderror
+        </div>
+
         <div class="grid grid-cols-2 gap-6">
             <div>
                 <label class="block text-sm font-semibold text-admin-text mb-1.5">Status Kelas</label>

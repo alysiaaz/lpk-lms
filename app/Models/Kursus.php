@@ -15,6 +15,7 @@ class Kursus extends Model
         'judul', 
         'slug', 
         'deskripsi', 
+        'harga',
         'thumbnail', 
         'status_kelas', 
         'metode_belajar', 

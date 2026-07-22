@@ -88,6 +88,16 @@
                 Enrollments
             </a>
 
+            <a href="{{ route('admin.vouchers.index') }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
+                      {{ request()->routeIs('admin.vouchers.*') ? 'bg-admin-accent text-white shadow-sm' : 'text-slate-300 hover:bg-admin-navy-2 hover:text-white' }}">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 4v16" stroke-dasharray="2 2"/>
+                </svg>
+                Voucher
+            </a>
+            
             <p class="px-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-6 mb-2">Pengaturan</p>
 
             <a href="{{ route('admin.settings.edit') }}"

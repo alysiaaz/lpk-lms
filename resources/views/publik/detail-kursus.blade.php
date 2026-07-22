@@ -58,6 +58,13 @@
             <div class="lg:col-span-4">
                 <div class="bg-lpk-teal text-lpk-bg p-6 sm:p-8 rounded-3xl sticky top-28 shadow-xl space-y-6 border border-lpk-gold/20">
                     <div>
+                        <span class="text-lpk-gold text-xs font-bold uppercase tracking-wider">Biaya Program</span>
+                        <div class="text-3xl font-extrabold text-lpk-bg mt-1">Rp {{ number_format($kursus->harga, 0, ',', '.') }}</div>
+                    </div>
+
+                    <hr class="border-lpk-bg/15">
+
+                    <div>
                         <span class="text-lpk-gold text-xs font-bold uppercase tracking-wider">Status Kelas</span>
                         <div class="text-2xl font-extrabold text-lpk-bg mt-1">{{ $kursus->status_kelas }}</div>
                         <p class="text-lpk-mint/80 text-xs mt-1">Kuota terbatas untuk menjaga kualitas mentoring.</p>
@@ -84,13 +91,10 @@
                                     ✓ Sudah Terdaftar — Lihat Kursus Saya
                                 </a>
                             @else
-                                {{-- Sudah login sebagai peserta, belum daftar kursus ini --}}
-                                <form action="{{ route('enroll.store', $kursus->slug) }}" method="POST" class="w-full">
-                                    @csrf
-                                    <button type="submit" class="w-full block text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold py-4 rounded-2xl text-sm transition-all shadow-md">
-                                        Daftar Program Sekarang
-                                    </button>
-                                </form>
+                                {{-- Sudah login sebagai peserta, belum daftar kursus ini: arahkan ke checkout --}}
+                                <a href="{{ route('checkout.show', $kursus->slug) }}" class="w-full block text-center bg-lpk-gold hover:bg-opacity-90 text-lpk-charcoal font-extrabold py-4 rounded-2xl text-sm transition-all shadow-md">
+                                    Daftar Program Sekarang
+                                </a>
                             @endif
                         @else
                             {{-- Login sebagai admin: tidak perlu tombol daftar --}}
