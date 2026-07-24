@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('opsis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('soal_id')->constrained('soals')->cascadeOnDelete();
+            $table->string('teks_pilihan');
+            $table->boolean('is_benar')->default(false); // Penanda jawaban benar
             $table->timestamps();
         });
     }

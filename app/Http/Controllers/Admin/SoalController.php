@@ -45,7 +45,6 @@ class SoalController extends Controller
                 'pertanyaan' => $request->pertanyaan
             ]);
 
-            // 2. Simpan 4 opsi pilihan ganda
             foreach ($request->opsi as $index => $teksOpsi) {
                 $soal->opsis()->create([
                     'teks_pilihan' => $teksOpsi,
@@ -80,10 +79,9 @@ class SoalController extends Controller
         ]);
 
         DB::transaction(function () use ($request, $soal) {
-            // 1. Update pertanyaan
+
             $soal->update(['pertanyaan' => $request->pertanyaan]);
 
-            // 2. Update masing-masing opsi
             $soal->load('opsis');
             foreach ($soal->opsis as $index => $opsi) {
                 $opsi->update([
