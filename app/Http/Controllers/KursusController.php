@@ -67,4 +67,12 @@ class KursusController extends Controller
 
         return view('publik.detail-kursus', compact('kursus', 'kursusTerkait'));
     }
+
+    public function destroy(string $id)
+    {
+        $kursus = Kursus::findOrFail($id);
+        $kursus->delete(); 
+
+        return redirect()->route('admin.kursus.index')->with('success', 'Program pelatihan dan seluruh data terkait berhasil dihapus bersih.');
+    }
 }

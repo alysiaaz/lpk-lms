@@ -11,7 +11,7 @@
 
         <div>
             <label class="block text-sm font-semibold text-admin-text mb-1.5">Judul Kursus</label>
-            <input type="text" name="judul" value="{{ old('judul') }}" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none">
+            <input type="text" name="judul" value="{{ old('judul') }}" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none" required>
             @error('judul') <p class="text-red-600 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
 
@@ -43,23 +43,51 @@
             @error('harga') <p class="text-red-600 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <!-- Spesifikasi Kursus (Dropdown Pilihan) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-admin-bg p-4 rounded-xl border border-admin-border">
+            <!-- Status Kelas -->
             <div>
                 <label class="block text-sm font-semibold text-admin-text mb-1.5">Status Kelas</label>
-                <input type="text" name="status_kelas" value="{{ old('status_kelas', 'Pendaftaran Buka') }}" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none">
+                <select name="status_kelas" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none text-sm bg-white">
+                    @foreach(['Pendaftaran Buka', 'Pendaftaran Tutup', 'Kelas Penuh', 'Sedang Berlangsung'] as $status)
+                        <option value="{{ $status }}" @selected(old('status_kelas', 'Pendaftaran Buka') == $status)>{{ $status }}</option>
+                    @endforeach
+                </select>
+                <p class="text-[11px] text-admin-muted mt-1">Status ketersediaan kuota kelas.</p>
                 @error('status_kelas') <p class="text-red-600 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
+
+            <!-- Metode Belajar -->
             <div>
                 <label class="block text-sm font-semibold text-admin-text mb-1.5">Metode Belajar</label>
-                <input type="text" name="metode_belajar" value="{{ old('metode_belajar') }}" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none">
+                <select name="metode_belajar" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none text-sm bg-white">
+                    @foreach(['Mandiri (Self-Paced / Kapan Saja)', 'Webinar Live (Online)', 'Tatap Muka (Offline di Kelas)', 'Hybrid (Online & Offline)'] as $metode)
+                        <option value="{{ $metode }}" @selected(old('metode_belajar', 'Mandiri (Self-Paced / Kapan Saja)') == $metode)>{{ $metode }}</option>
+                    @endforeach
+                </select>
+                <p class="text-[11px] text-admin-muted mt-1">Cara penyampaian materi.</p>
             </div>
+
+            <!-- Tingkat Kesiapan -->
             <div>
                 <label class="block text-sm font-semibold text-admin-text mb-1.5">Tingkat Kesiapan</label>
-                <input type="text" name="tingkat_kesiapan" value="{{ old('tingkat_kesiapan') }}" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none">
+                <select name="tingkat_kesiapan" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none text-sm bg-white">
+                    @foreach(['Pemula (Beginner)', 'Menengah (Intermediate)', 'Mahir (Advanced)', 'Semua Tingkat (All Levels)'] as $tingkat)
+                        <option value="{{ $tingkat }}" @selected(old('tingkat_kesiapan', 'Pemula (Beginner)') == $tingkat)>{{ $tingkat }}</option>
+                    @endforeach
+                </select>
+                <p class="text-[11px] text-admin-muted mt-1">Target kemampuan awal peserta.</p>
             </div>
+
+            <!-- Sertifikat -->
             <div>
                 <label class="block text-sm font-semibold text-admin-text mb-1.5">Sertifikat</label>
-                <input type="text" name="sertifikat" value="{{ old('sertifikat') }}" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none">
+                <select name="sertifikat" class="w-full border border-admin-border p-2.5 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-admin-accent outline-none text-sm bg-white">
+                    @foreach(['Sertifikat Penyelesaian (Completion)', 'Sertifikat Kompetensi + Nilai', 'Tidak Ada Sertifikat'] as $sertifikat)
+                        <option value="{{ $sertifikat }}" @selected(old('sertifikat', 'Sertifikat Penyelesaian (Completion)') == $sertifikat)>{{ $sertifikat }}</option>
+                    @endforeach
+                </select>
+                <p class="text-[11px] text-admin-muted mt-1">Bukti kelulusan yang didapat.</p>
             </div>
         </div>
 
@@ -74,7 +102,7 @@
             <label for="is_unggulan" class="text-sm font-semibold text-admin-text">Tampilkan sebagai Unggulan di Beranda</label>
         </div>
 
-        <button class="bg-admin-accent text-white px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-admin-accent-dark transition">Simpan</button>
+        <button type="submit" class="bg-admin-accent text-white px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-admin-accent-dark transition">Simpan Kursus</button>
     </form>
 </div>
 @endsection

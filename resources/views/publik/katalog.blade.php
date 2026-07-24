@@ -16,13 +16,7 @@
     <!-- GRID HASIL KATALOG -->
     <section class="py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Informasi Hasil Filter -->
-            @if(request('search') || request('kategori_id'))
-                <div class="mb-8 flex items-center justify-between bg-lpk-mint p-4 rounded-2xl border border-lpk-teal/10">
-                    <span class="text-xs font-bold text-lpk-teal">Menampilkan hasil pencarian</span>
-                    <a href="{{ route('kursus.index') }}" class="text-xs font-extrabold text-red-600 hover:underline">✕ Reset Filter</a>
-                </div>
-            @endif
+
 
             <!-- Filter Bar -->
             <div class="bg-white rounded-2xl shadow-sm border border-lpk-teal/10 p-6 mb-8">

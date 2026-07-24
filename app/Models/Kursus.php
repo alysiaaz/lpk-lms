@@ -4,11 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Ujian;
+use Illuminate\Support\Facades\Storage;
 
 class Kursus extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($kursus) {
+            if ($kursus->thumbnail && Storage::exists('public/' . $kursus->thumbnail)) {
+                Storage::delete('public/' . $kursus->thumbnail);
+            }
+        });
+    }
+    
     protected $table = 'kursuses';
     protected $fillable = [
         'kategori_id', 
@@ -39,5 +53,10 @@ class Kursus extends Model
     public function moduls()
     {
         return $this->hasMany(Modul::class, 'kursus_id')->orderBy('urutan');
+    }
+
+    public function ujians()
+    {
+        return $this->hasMany(Ujian::class);
     }
 }

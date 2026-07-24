@@ -43,7 +43,7 @@
                 </div>
                 <div>
                     <p class="text-white font-bold leading-tight">LPK Karier Sukses</p>
-                    <p class="text-xs text-slate-400 tracking-wide uppercase">Admin Panel</p>
+                    <p class="text-xs text-slate-400 tracking-wide uppercase">{{ auth()->user()->role === 'admin' ? 'Admin Panel' : 'Assessor Panel' }}</p>
                 </div>
             </div>
         </div>
@@ -76,27 +76,30 @@
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15Z"/>
                 </svg>
-                Kursus
+                Kursus & Ujian
             </a>
 
-            <a href="{{ route('admin.enrollment.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
-                      {{ request()->routeIs('admin.enrollment.*') ? 'bg-admin-accent text-white shadow-sm' : 'text-slate-300 hover:bg-admin-navy-2 hover:text-white' }}">
-                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm7 4h5m0 0-2-2m2 2-2 2"/>
-                </svg>
-                Enrollments
-            </a>
+            <!-- MEMBATASI AKSES: HANYA ADMIN MURNI YANG BISA MELIHAT ENROLLMENT & VOUCHER -->
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin.enrollment.index') }}"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
+                          {{ request()->routeIs('admin.enrollment.*') ? 'bg-admin-accent text-white shadow-sm' : 'text-slate-300 hover:bg-admin-navy-2 hover:text-white' }}">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm7 4h5m0 0-2-2m2 2-2 2"/>
+                    </svg>
+                    Enrollments
+                </a>
 
-            <a href="{{ route('admin.vouchers.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
-                      {{ request()->routeIs('admin.vouchers.*') ? 'bg-admin-accent text-white shadow-sm' : 'text-slate-300 hover:bg-admin-navy-2 hover:text-white' }}">
-                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 4v16" stroke-dasharray="2 2"/>
-                </svg>
-                Voucher
-            </a>
+                <a href="{{ route('admin.vouchers.index') }}"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
+                          {{ request()->routeIs('admin.vouchers.*') ? 'bg-admin-accent text-white shadow-sm' : 'text-slate-300 hover:bg-admin-navy-2 hover:text-white' }}">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 4v16" stroke-dasharray="2 2"/>
+                    </svg>
+                    Voucher
+                </a>
+            @endif
             
             <p class="px-3 text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-6 mb-2">Pengaturan</p>
 
@@ -145,14 +148,14 @@
         <!-- Topbar -->
         <header class="h-16 bg-white border-b border-admin-border flex items-center justify-between px-8 sticky top-0 z-10">
             <div>
-                <p class="text-xs text-admin-muted">Admin Panel</p>
+                <p class="text-xs text-admin-muted">{{ auth()->user()->role === 'admin' ? 'Admin Panel' : 'Assessor Panel' }}</p>
                 <h1 class="text-base font-bold text-admin-text">@yield('page-title', 'Dashboard')</h1>
             </div>
             <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 group">
                 <img src="{{ auth()->user()->avatarUrl() }}" alt="Foto profil" class="w-9 h-9 rounded-full object-cover ring-2 ring-transparent group-hover:ring-admin-accent/30 transition">
                 <div class="text-sm text-left">
-                    <p class="font-semibold text-admin-text leading-tight group-hover:text-admin-accent transition">{{ auth()->user()->name ?? 'Admin' }}</p>
-                    <p class="text-xs text-admin-muted leading-tight">Lihat profil</p>
+                    <p class="font-semibold text-admin-text leading-tight group-hover:text-admin-accent transition">{{ auth()->user()->name ?? 'User' }}</p>
+                    <p class="text-xs text-admin-muted leading-tight capitalize">{{ auth()->user()->role }}</p>
                 </div>
             </a>
         </header>

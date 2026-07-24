@@ -28,8 +28,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        //menyesuaikan role
-        if ($request->user()->role === 'admin'){
+        // Menyesuaikan role: Admin dan Assessor diarahkan ke Admin Dashboard
+        if ($request->user()->role === 'admin' || $request->user()->role === 'assessor') {
             return redirect()->intended('/admin/dashboard');
         }
 

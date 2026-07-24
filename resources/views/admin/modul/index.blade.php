@@ -3,15 +3,26 @@
 
 @section('content')
 <div class="space-y-6">
-    <div class="flex justify-between items-center">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <a href="{{ route('admin.kursus.index') }}" class="text-sm text-admin-accent font-medium hover:underline">&larr; Kembali ke Daftar Kursus</a>
             <h1 class="text-2xl font-bold text-admin-text mt-1">Silabus: {{ $kursus->judul }}</h1>
         </div>
-        <a href="{{ route('admin.kursus.modul.create', $kursus->id) }}" class="inline-flex items-center gap-2 bg-admin-accent text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-admin-accent-dark transition shadow-sm">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/></svg>
-            Tambah Modul
-        </a>
+        
+        <!-- AREA TOMBOL KELOLA -->
+        <div class="flex items-center gap-2">
+            <!-- Tombol Kelola Ujian (Pre-Test & Post-Test) -->
+            <a href="{{ route('admin.kursus.ujian.index', $kursus->id) }}" class="inline-flex items-center gap-2 bg-admin-navy text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-admin-navy-2 transition shadow-sm">
+                <span>📝</span>
+                Kelola Pre-Test & Post-Test
+            </a>
+
+            <!-- Tombol Tambah Modul -->
+            <a href="{{ route('admin.kursus.modul.create', $kursus->id) }}" class="inline-flex items-center gap-2 bg-admin-accent text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-admin-accent-dark transition shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/></svg>
+                Tambah Modul
+            </a>
+        </div>
     </div>
 
     @if(session('success'))

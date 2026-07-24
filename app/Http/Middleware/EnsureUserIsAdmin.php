@@ -10,9 +10,11 @@ class EnsureUserIsAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->role === 'admin') {
-        return $next($request);
+        // Izinkan jika user sudah login DAN rolenya adalah 'admin' ATAU 'assessor'
+        if (auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'assessor')) {
+            return $next($request);
         }
-        return redirect()->route('beranda')->with('error', 'Anda tidak memiliki akses admin.');
+
+        return redirect()->route('beranda')->with('error', 'Anda tidak memiliki akses ke panel ini.');
     }
 }
